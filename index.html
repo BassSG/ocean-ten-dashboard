@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ocean Ten Executive Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a192f;
+            --secondary: #172a45;
+            --accent: #64ffda;
+            --text-main: #ccd6f6;
+            --text-dim: #8892b0;
+            --gold: #ffd700;
+            --red: #ff4d4d;
+        }
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--secondary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .date {
+            color: var(--text-dim);
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+        .card {
+            background: var(--secondary);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+        h2 {
+            margin-top: 0;
+            color: var(--accent);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .news-item {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding: 15px 0;
+        }
+        .news-item:last-child { border: none; }
+        .news-tag {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .news-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .news-desc {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+        .market-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .market-val { font-weight: 600; }
+        .up { color: #4cd137; }
+        .down { color: var(--red); }
+        .audio-player {
+            background: rgba(100, 255, 218, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            padding: 15px 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .play-btn {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">🦐 OCEAN TEN EXECUTIVE</div>
+            <div class="date" id="currentDate">Monday, March 9, 2026</div>
+        </header>
+
+        <div class="grid">
+            <div class="main-content">
+                <div class="card">
+                    <h2>🎙️ CEO Voice Briefing (Audio)</h2>
+                    <div class="audio-player">
+                        <div class="play-btn">▶</div>
+                        <div>
+                            <div style="font-weight: 600;">เลขาฯ กุ้งรายงานข่าวด่วนประจำวัน</div>
+                            <div style="font-size: 0.8rem; color: var(--text-dim);">Duration: 2:15 | Status: Ready to play</div>
+                        </div>
+                    </div>
+                    <p style="font-size: 0.8rem; margin-top: 10px; color: var(--text-dim);">*หมายเหตุ: ในเวอร์ชันเต็ม กุ้งจะฝังไฟล์เสียงสรุปรายวันไว้ที่นี่ให้บอสกดฟังได้ทันทีค่ะ*</p>
+                </div>
+
+                <div class="card">
+                    <h2>📰 Breaking Intelligence</h2>
+                    <div id="news-container">
+                        <!-- News items will be injected here -->
+                        <div class="news-item">
+                            <span class="news-tag">Geopolitics</span>
+                            <span class="news-title">วิกฤตช่องแคบฮอร์มุซ: การจราจรน้ำมันลดลง 90% หลังการโจมตี</span>
+                            <p class="news-desc">สถานการณ์ตึงเครียดถึงขีดสุดเมื่อการขนส่งน้ำมันและก๊าซ LNG ผ่านจุดยุทธศาสตร์สำคัญถูกระงับ IMF เตือนทั่วโลกเตรียมรับมือสภาวะ "Unthinkable" หากความขัดแย้งยืดเยื้อ</p>
+                        </div>
+                        <div class="news-item">
+                            <span class="news-tag">Economy</span>
+                            <span class="news-title">ราคาน้ำมันดิบพุ่งทะลุ $145/bbl สูงสุดในรอบหลายปี</span>
+                            <p class="news-desc">Energy Shock ครั้งใหญ่ส่งผลกระทบต่อต้นทุนการผลิตทั่วโลก ดันเงินเฟ้อพุ่งสูงขึ้นจนนักลงทุนเริ่มกังวลว่า Fed อาจคงอัตราดอกเบี้ยสูงนานกว่าที่คาด</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="card">
+                    <h2>📊 Market Snapshot</h2>
+                    <div class="market-row">
+                        <span>Gold (XAUUSD)</span>
+                        <span class="market-val down">$5,123.82 (-0.68%)</span>
+                    </div>
+                    <div class="market-row">
+                        <span>WTI Crude</span>
+                        <span class="market-val up">$145.00 (+25.0%)</span>
+                    </div>
+                    <div class="market-row">
+                        <span>US Dollar Index</span>
+                        <span class="market-val up">106.45 (+0.45%)</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>🦐 CEO Note</h2>
+                    <p class="news-desc" style="font-style: italic;">"บอสคะ ช่วงนี้ตลาดผันผวนหนักมากจากข่าวอิหร่าน กุ้งแนะนำให้จับตาดูแนวรับทองที่ $5,050 ให้ดีนะคะ ถ้าหลุดจุดนี้อาจมีเทขายหนักค่ะ กุ้งและทีมงาน Shark พร้อมแสตนบาย 24 ชม. ค่ะ!"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
