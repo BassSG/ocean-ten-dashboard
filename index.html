@@ -7,16 +7,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;600&family=Inter:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #050505;
-            --bg-card: #0e0e0e;
+            --bg-deep: #020202;
+            --bg-card: #0a0a0a;
             --accent: #00f2ff;
             --accent-dim: rgba(0, 242, 255, 0.1);
             --gold: #d4af37;
             --red: #ff3b30;
             --text-primary: #ffffff;
-            --text-secondary: #999;
+            --text-secondary: #888;
             --border: rgba(255, 255, 255, 0.05);
             --glass: rgba(255, 255, 255, 0.02);
+            --neon-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -26,147 +27,154 @@
             color: var(--text-primary);
             margin: 0; padding: 0;
             overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, #111 0%, #020202 100%);
         }
 
         /* Top Bar */
         .top-nav {
-            padding: 20px 40px;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
-            background: rgba(5,5,5,0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(2,2,2,0.8);
+            backdrop-filter: blur(20px);
             position: sticky; top: 0; z-index: 100;
         }
 
         .brand { display: flex; align-items: center; gap: 15px; }
         .logo-box {
-            width: 45px; height: 45px;
+            width: 40px; height: 40px;
             background: linear-gradient(135deg, #00f2ff, #0066ff);
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+            font-size: 22px;
+            box-shadow: var(--neon-shadow);
         }
-
-        .brand-name { font-size: 24px; font-weight: 800; letter-spacing: -1px; }
+        .brand-name { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
         
-        /* Dashboard Layout */
+        /* Layout */
         .main-container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 40px;
+            padding: 30px;
             display: grid;
             grid-template-columns: repeat(12, 1fr);
-            gap: 30px;
+            gap: 25px;
         }
 
-        /* Card Styles */
+        /* Hero Card (Audio) */
+        .hero-section { grid-column: span 12; }
+        .card-hero {
+            background: linear-gradient(90deg, #0f0f0f 0%, #050505 100%);
+            border: 1px solid var(--accent);
+            border-radius: 24px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .card-hero::after {
+            content: 'URGENT'; position: absolute; top: 20px; right: -30px;
+            background: var(--red); color: white; padding: 5px 40px;
+            font-size: 10px; font-weight: 900; transform: rotate(45deg);
+        }
+
+        .play-trigger {
+            width: 90px; height: 90px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; flex-shrink: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--neon-shadow);
+        }
+        .play-trigger:hover { transform: scale(1.05); filter: brightness(1.1); }
+
+        .audio-info h1 {
+            margin: 0 0 8px; font-size: 34px; font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -0.5px;
+        }
+        .audio-meta { color: var(--accent); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Secondary Grid */
+        .col-pulse { grid-column: span 4; }
+        .col-intel { grid-column: span 8; }
+
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 24px;
             padding: 30px;
-            position: relative;
-            overflow: hidden;
+            height: 100%;
         }
 
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            opacity: 0.3;
+        .card-title {
+            font-size: 12px; font-weight: 700; color: #555;
+            text-transform: uppercase; letter-spacing: 3px;
+            margin-bottom: 25px; border-left: 3px solid var(--accent);
+            padding-left: 15px;
         }
-
-        .card-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .card-label {
-            font-size: 12px; font-weight: 700; color: var(--accent);
-            text-transform: uppercase; letter-spacing: 2px;
-            display: flex; align-items: center; gap: 8px;
-        }
-
-        /* Audio Section (Top Priority) */
-        .hero-section { grid-column: span 12; }
-        
-        .audio-hero {
-            background: linear-gradient(135deg, #0a0a0a 0%, #151515 100%);
-            display: flex; align-items: center; gap: 40px;
-            padding: 40px; border: 1px solid var(--accent);
-            box-shadow: 0 0 40px rgba(0, 242, 255, 0.1);
-        }
-
-        .play-trigger {
-            width: 80px; height: 80px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; flex-shrink: 0;
-            transition: transform 0.3s;
-        }
-        .play-trigger:hover { transform: scale(1.1); }
-
-        .audio-info h1 {
-            margin: 0 0 10px; font-size: 32px; font-weight: 700;
-            font-family: 'Playfair Display', serif;
-        }
-        .audio-meta { color: var(--text-secondary); font-size: 14px; }
 
         /* Market Pulse */
-        .col-pulse { grid-column: span 4; }
-        .market-ticker { display: flex; flex-direction: column; gap: 15px; }
-        .ticker-item {
+        .market-item {
             background: var(--glass);
-            padding: 20px; border-radius: 16px;
+            padding: 20px; border-radius: 18px;
+            margin-bottom: 15px;
             display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid transparent;
+            transition: border 0.3s;
         }
-        .val-big { font-size: 22px; font-weight: 700; font-family: 'Inter'; }
+        .market-item:hover { border-color: var(--border); }
+        .val-big { font-size: 24px; font-weight: 700; }
+        .change-pill { padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+        .up { background: rgba(0, 255, 0, 0.1); color: #00ff00; }
+        .down { background: rgba(255, 59, 48, 0.1); color: var(--red); }
 
-        /* Intelligence Center */
-        .col-intel { grid-column: span 8; }
-        .news-group { display: flex; flex-direction: column; gap: 30px; }
-        .intel-item { border-bottom: 1px solid var(--border); padding-bottom: 25px; }
-        .intel-item:last-child { border: none; }
-        
+        /* News Feed */
+        .intel-item {
+            margin-bottom: 35px; position: relative; padding-left: 25px;
+        }
+        .intel-item::before {
+            content: ''; position: absolute; left: 0; top: 8px; width: 8px; height: 8px;
+            border-radius: 50%; background: var(--accent);
+        }
+        .intel-item:last-child { margin-bottom: 0; }
         .intel-headline {
-            font-size: 24px; font-weight: 600; line-height: 1.3;
-            margin: 10px 0; color: #fff; display: block;
+            font-size: 22px; font-weight: 600; line-height: 1.4;
+            color: #fff; margin-bottom: 12px; display: block; text-decoration: none;
         }
-        .intel-body { color: var(--text-secondary); font-size: 16px; line-height: 1.7; }
-        .intel-meta { display: flex; gap: 15px; font-size: 12px; font-weight: 700; margin-bottom: 10px; }
+        .intel-body { color: var(--text-secondary); font-size: 15px; line-height: 1.8; }
+        .intel-tag { font-size: 10px; font-weight: 900; padding: 3px 8px; border-radius: 4px; margin-right: 10px; }
+        .tag-war { background: var(--red); color: white; }
+        .tag-oil { background: var(--gold); color: black; }
 
-        .cat-war { color: var(--red); }
-        .cat-finance { color: var(--gold); }
-
-        /* CEO Strategy Board */
-        .strategy-board {
-            background: linear-gradient(135deg, rgba(0, 242, 255, 0.05), transparent);
-            border: 1px solid rgba(0, 242, 255, 0.2);
-            padding: 40px; border-radius: 30px;
-            grid-column: span 12; margin-top: 20px;
-        }
-
+        /* Strategy Board */
+        .strategy-board { grid-column: span 12; margin-top: 10px; }
         .strategy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-        .strategy-point h4 { color: var(--accent); margin: 0 0 10px; text-transform: uppercase; font-size: 14px; }
-        .strategy-point p { font-size: 15px; color: #ddd; margin: 0; }
+        .strategy-point { padding: 20px; background: rgba(255,255,255,0.01); border-radius: 20px; border: 1px dashed var(--border); }
+        .strategy-point h4 { color: var(--accent); margin: 0 0 15px; font-size: 13px; letter-spacing: 1px; }
+        .strategy-point p { font-size: 14px; color: #bbb; margin: 0; line-height: 1.6; }
 
         /* Animations */
-        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
-        .live-dot { width: 8px; height: 8px; background: #00ff00; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+        .live-indicator { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: #00ff00; }
+        .dot { width: 6px; height: 6px; background: #00ff00; border-radius: 50%; animation: pulse 2s infinite; }
 
         /* Responsive */
-        @media (max-width: 1200px) {
+        @media (max-width: 1100px) {
             .col-pulse, .col-intel { grid-column: span 12; }
             .strategy-grid { grid-template-columns: 1fr; }
         }
-
         @media (max-width: 768px) {
+            .top-nav { padding: 15px 20px; }
             .main-container { padding: 20px; }
-            .audio-hero { flex-direction: column; text-align: center; padding: 30px; }
-            .intel-headline { font-size: 20px; }
+            .card-hero { flex-direction: column; text-align: center; padding: 30px; gap: 30px; }
+            .audio-info h1 { font-size: 26px; }
         }
     </style>
 </head>
@@ -176,117 +184,95 @@
             <div class="logo-box">🦐</div>
             <div class="brand-name">OCEAN TEN | EXECUTIVE</div>
         </div>
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <div style="text-align: right; line-height: 1;">
-                <div style="font-size: 10px; font-weight: 700; color: var(--text-secondary);">LAST SYNC</div>
-                <div style="font-size: 14px; font-weight: 600;">17:25 BKK</div>
-            </div>
-            <div class="live-dot"></div>
+        <div class="live-indicator">
+            <div class="dot"></div>
+            SYSTEM LIVE: 17:35 BKK
         </div>
     </div>
 
     <div class="main-container">
-        <!-- HERO: VOICE BRIEFING -->
+        <!-- TOP: AUDIO BRIEFING -->
         <section class="hero-section">
-            <div class="card audio-hero">
+            <div class="card-hero">
                 <div class="play-trigger" onclick="toggleAudio()">
-                    <svg id="playIcon" width="30" height="30" viewBox="0 0 20 24" fill="none">
+                    <svg id="playIcon" width="35" height="35" viewBox="0 0 20 24" fill="none">
                         <path d="M19 12L1 23V1L19 12Z" fill="black"/>
                     </svg>
                 </div>
                 <div class="audio-info">
-                    <div class="card-label">🔊 Premium Voice Briefing</div>
-                    <h1>รายงานสรุปภาวะสงครามและการเงินภาคค่ำ</h1>
-                    <div class="audio-meta">Narrated by Nong Kung (CEO) • 2:15 Minutes • Executive Quality</div>
-                    <audio id="briefingAudio" src="briefing_v1.mp3"></audio>
+                    <div class="audio-meta">Critical Intel Briefing</div>
+                    <h1>สมรภูมิตะวันออกกลางและการอัมพาตของช่องแคบฮอร์มุซ</h1>
+                    <div style="color: #666; font-size: 14px; margin-top: 5px;">March 9, 2026 • High-Level Analysis by Nong Kung</div>
+                    <audio id="briefingAudio" src="briefing_v2.mp3"></audio>
                 </div>
             </div>
         </section>
 
-        <!-- MARKET PULSE -->
+        <!-- LEFT: MARKET PULSE -->
         <section class="col-pulse">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-label">📊 Market Pulse</div>
-                    <div style="font-size: 10px; color: var(--text-secondary);">REAL-TIME</div>
+                <div class="card-title">Market Pulse</div>
+                <div class="market-item">
+                    <div>
+                        <div style="font-size: 11px; color: #555; margin-bottom: 5px;">GOLD (XAU/USD)</div>
+                        <div class="val-big">$5,097.09</div>
+                    </div>
+                    <div class="change-pill down">-1.20%</div>
                 </div>
-                <div class="market-ticker">
-                    <div class="ticker-item">
-                        <div>
-                            <div style="font-size: 12px; color: var(--text-secondary);">GOLD (XAU/USD)</div>
-                            <div class="val-big" style="color: var(--red);">$5,097.09</div>
-                        </div>
-                        <div style="text-align: right; color: var(--red); font-size: 14px; font-weight: 700;">-1.2%</div>
+                <div class="market-item">
+                    <div>
+                        <div style="font-size: 11px; color: #555; margin-bottom: 5px;">BRENT CRUDE OIL</div>
+                        <div class="val-big">$118.45</div>
                     </div>
-                    <div class="ticker-item">
-                        <div>
-                            <div style="font-size: 12px; color: var(--text-secondary);">WTI CRUDE OIL</div>
-                            <div class="val-big" style="color: #00ff00;">$145.00</div>
-                        </div>
-                        <div style="text-align: right; color: #00ff00; font-size: 14px; font-weight: 700;">+25.0%</div>
+                    <div class="change-pill up">+22.5%</div>
+                </div>
+                <div class="market-item">
+                    <div>
+                        <div style="font-size: 11px; color: #555; margin-bottom: 5px;">DXY INDEX</div>
+                        <div class="val-big">106.45</div>
                     </div>
-                    <div class="ticker-item">
-                        <div>
-                            <div style="font-size: 12px; color: var(--text-secondary);">DXY (USD INDEX)</div>
-                            <div class="val-big">106.45</div>
-                        </div>
-                        <div style="text-align: right; color: #00ff00; font-size: 14px; font-weight: 700;">+0.45%</div>
-                    </div>
+                    <div class="change-pill up">+0.45%</div>
                 </div>
             </div>
         </section>
 
-        <!-- INTELLIGENCE CENTER -->
+        <!-- RIGHT: INTELLIGENCE -->
         <section class="col-intel">
             <div class="card">
-                <div class="card-header">
-                    <div class="card-label">🚨 War & Geopolitics Intelligence</div>
-                    <div style="color: var(--text-secondary); font-size: 12px;">GLOBAL UPDATE</div>
+                <div class="card-title">Intelligence Feed</div>
+                <div class="intel-item">
+                    <span class="intel-tag tag-war">TOP STORY</span>
+                    <a href="#" class="intel-headline">อิหร่านแต่งตั้งผู้นำใหม่ "โมจทาบา คาเมเนอี" พร้อมยิงขีปนาวุธถล่มอิสราเอลทันที</a>
+                    <p class="intel-body">สถานการณ์เปลี่ยนไปเป็นการเผชิญหน้าโดยตรง อิสราเอลสั่งถล่มคลังแสงในเตหะรานพินาศ ทั่วโลกกังวลสงครามใหญ่ที่อาจลุกลามเกินควบคุม</p>
                 </div>
-                <div class="news-group">
-                    <div class="intel-item">
-                        <div class="intel-meta">
-                            <span class="cat-war">WAR UPDATE</span>
-                            <span>17:10 BKK</span>
-                        </div>
-                        <a href="#" class="intel-headline">อิหร่านเปิดตัวผู้นำสูงสุดคนใหม่ "โมจทาบา คาเมเนอี" ท่ามกลางเสียงขู่จากสหรัฐฯ</a>
-                        <p class="intel-body">การเปลี่ยนผ่านอำนาจในอิหร่านเกิดขึ้นอย่างรวดเร็วหลังการสูญเสียครั้งใหญ่ ประธานาธิบดีทรัมป์ส่งสัญญาณ "Maximum Pressure" รอบใหม่ทันที ส่งผลให้ความตึงเครียดในภูมิภาคพุ่งสู่ขีดสุด</p>
-                    </div>
-                    <div class="intel-item">
-                        <div class="intel-meta">
-                            <span class="cat-war">MILITARY OPS</span>
-                            <span>16:45 BKK</span>
-                        </div>
-                        <a href="#" class="intel-headline">กองทัพอิสราเอล (IDF) ถล่มเป้าหมายทางทหารในเตหะรานและเบรุตพินาศ</a>
-                        <p class="intel-body">กองทัพอากาศอิสราเอลเปิดฉากโจมตีรอบใหม่เพื่อทำลายฐานยิงขีปนาวุธและคลังแสงในอิหร่านและเลบานอน ขณะที่ชาติอาหรับในอ่าวเปอร์เซียเริ่มได้รับความเสียหายจากโดรนตอบโต้</p>
-                    </div>
-                    <div class="intel-item">
-                        <div class="intel-meta">
-                            <span class="cat-finance">FINANCIAL SHOCK</span>
-                            <span>16:20 BKK</span>
-                        </div>
-                        <a href="#" class="intel-headline">IMF เตือน "สภาวะไม่ปกติใหม่" (New Normal) ทั่วโลกเตรียมรับแรงกระแทกทางเศรษฐกิจ</a>
-                        <p class="intel-body">ความล่าช้าในการขนส่งผ่านช่องแคบฮอร์มุซที่ลดลงถึง 90% กำลังส่งผลให้ยุโรปเผชิญวิกฤตก๊าซธรรมชาติพุ่งสูงขึ้น 60% และอาจนำไปสู่ภาวะเงินเฟ้อรุนแรงทั่วโลก</p>
-                    </div>
+                <div class="intel-item">
+                    <span class="intel-tag tag-oil">SUPPLY SHOCK</span>
+                    <a href="#" class="intel-headline">ช่องแคบฮอร์มุซเป็นอัมพาต! ซัพพลายน้ำมันโลกหายไป 20% ในข้ามคืน</a>
+                    <p class="intel-body">การปิดเส้นทางเดินเรือยุทธศาสตร์ส่งผลให้ราคาน้ำมันเบรนท์พุ่งแตะ $120/bbl ดันเงินเฟ้อทั่วโลก และบีบให้ธนาคารกลางต้องทบทวนนโยบายดอกเบี้ย</p>
+                </div>
+                <div class="intel-item">
+                    <span class="intel-tag tag-oil">MARKET REACTION</span>
+                    <a href="#" class="intel-headline">ตลาดหุ้นเอเชียดิ่งเหว นักลงทุนแห่ซบดอลลาร์สหรัฐและทองคำ</a>
+                    <p class="intel-body">Safe-haven demand พุ่งสูงขึ้นเป็นประวัติการณ์ แม้ดอลลาร์จะแข็งค่าแต่ทองคำยังรักษาระดับเหนือ $5,000 ได้อย่างเหนียวแน่น</p>
                 </div>
             </div>
         </section>
 
-        <!-- CEO STRATEGY BOARD -->
-        <section class="strategy-board">
-            <div class="card-label" style="margin-bottom: 30px;">🤵‍♂️ CEO STRATEGY BOARD</div>
+        <!-- BOTTOM: STRATEGY -->
+        <section class="strategy-board card">
+            <div class="card-title">Executive Strategy Board</div>
             <div class="strategy-grid">
                 <div class="strategy-point">
-                    <h4>Target: Gold</h4>
-                    <p>จับตาแนวรับสำคัญที่ $5,050 และ $5,020 หากหลุดจุดนี้ทองคำจะกลายเป็น "ขาลงเต็มตัว" ในระยะสั้นเนื่องจากดอลลาร์แย่งซีนสินทรัพย์ปลอดภัย</p>
+                    <h4>Gold Defense Line</h4>
+                    <p>รักษาวินัยการเทรดที่แนวรับ $5,050 หากหลุดจุดนี้มีโอกาสลงไปทดสอบจิตวิทยาที่ $5,000 อีกครั้ง</p>
                 </div>
                 <div class="strategy-point">
-                    <h4>Target: Energy</h4>
-                    <p>วิกฤตพลังงานครั้งนี้รุนแรงกว่าทุกครั้ง แนะนำบอสบริหารพอร์ตหุ้นกลุ่มพลังงานหรือกองทุนน้ำมันอย่างระมัดระวัง ผันผวนตามข่าวรายชั่วโมง</p>
+                    <h4>Inflation Hedge</h4>
+                    <p>สงครามที่ยืดเยื้อจะทำให้ทองคำเป็นสินทรัพย์เดียวที่สู้กับเงินเฟ้อจากราคาพลังงานได้ดีที่สุดในระยะกลาง</p>
                 </div>
                 <div class="strategy-point">
-                    <h4>Action Plan</h4>
-                    <p>ถือเงินสด (USD) มากขึ้น และรอจังหวะเข้าซื้อทองเมื่อสถานการณ์การเมืองเริ่มนิ่ง หรือเห็นสัญญาณกลับตัวที่ชัดเจนบริเวณ $5,000</p>
+                    <h4>Risk Factor</h4>
+                    <p>จับตาท่าทีของกลุ่มอาหรับ (OPEC) หากมีการประกาศลดการผลิตเพิ่มเติม น้ำมันจะพุ่งถึง $150 และทองจะตามไปติดๆ</p>
                 </div>
             </div>
         </section>
